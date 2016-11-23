@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+<b>Fast Heatmap Creator</b>
+<br>
+<a href="300k_by_8.csv" target="_blank">Sample Gene File Download</a>
+<br>
+<img src="morpheus.png" alt="matrix" style="width:304px;height:228px;">
+<br>
+<br>
+<style>
+.error {color: #FF0000;}
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: red;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
+
+<head>
+
+        <link rel="stylesheet" href="css/colorpicker.css" type="text/css" />
+    <link rel="stylesheet" media="screen" type="text/css" href="css/layout.css" />
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/colorpicker.js"></script>
+    <script type="text/javascript" src="js/eye.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/layout.js?ver=1.0.2"></script>
+        <!-- Numeric.js -->
+ <script src="    https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script> 
+<!-- Plotly.js -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <!--<script src="plotly/loader/loadersrc/plotly-latest.min.js"></script>-->
+        <!--<script src='libs/numeric.min.js'></script>=--> 
+        </head>
+        <body>
+
+<bay > choose your colors!</bay>
+         <p id="demo"></p>
+
+
+        <script src="jscolor.js"></script>
+
+
+
+       <h2><b>High Color<b></h2>
+         <input  class="jscolor" id="color"  value="ab2567">
+
+
+
+        <h3><b>Low Color<b></h3>
+
+        <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
+                Pick second heatmap color
+        </button>
+
+         <input type="hidden" id="chosen-value" value="000000">
+
+       <br>
+	 <script>
+        function setTextColor(picker) {
+                document.getElementsByTagName('h2')[0].style.color = '#' + picker.toString();
+
+
+
+        }
+	
+        </script>
+
+        
+
+
+
+
+
+
+
+
+
+
+<script>
+function setColors(){
+
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "color");
+    document.body.appendChild(x);
+
+
+}
+</script>
+        <!-- Plotly chart will be drawn inside this DIV -->
+<button onclick = "makeplot()">make plot!</button>
+<!--
+<h2>Enter Colors Here</h2>
+<p><span class="error">* required field.</span></p>
+<form method="post" action="colorwheel.php">  
+  HighColor: <input type="text" name="highcolor" value=<?php echo $color;?>>
+  <span class="error">*<?php echo $colorErr;?> </span>
+  <br><br>
+  LowColor: <input type="text" name="lowcolor" value=<?php echo $lowColor;?>>
+  <span class="error">*<?php echo $lowColorErr;?> </span>
+  <br><br>
+   <input type="submit"  value="Submit">  
+</form> -->
+        <div id="myDiv"></div>
+
+<!--<button onclick="setColors()">Click me</button>-->
+
+        <script>
+        function makeplot() {
+  //Plotly.d3.csv("localhost", function(data){ processData(data) } );
+
+};
+
+var heats ="ff1550";
+var wait = true; 
+var zValues = [];
+function popData(fl) { 
+Plotly.d3.csv(fl, function(data) {
+  dataset = data.map(function(d) { return [ +d["Control 1"], +d["Control 2"], +d["Exp3"], +d["Exp4"], +d["Exp5"], +d["Exp6"] ]; });
+  zValues = dataset; 
+  console.log(zValues); 
+  wait = false; 
+}); 
+}; 
+
+  function handleFileSelect() {
+    var file   = document.getElementById("files").files[0];
+    var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+    var fileURI = reader.result;
+    popData(fileURI);
+    console.log("fired");
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+     
+  }
+//popData(); 
+
+function processData(allRows) {
+
+  console.log(allRows);
+  zValues = allRows; 
+  var x = [], y = [], standard_deviation = [];
+
+  for (var i=0; i<allRows.length; i++) {
+    row = allRows[i]; 
+  }
+  console.log( 'X',x, 'Y',y, 'SD',standard_deviation );
+  makePlotly( x, y, standard_deviation );
+}
+
+makeplot(); 
+//popData(); 
+
+function setColor(){
+				
+    var heat = document.createElement("INPUT");
+    heat.setAttribute("type", "color");
+    document.body.appendChild(heat);
+    
+
+
+
+ 
+
+}
+
+function getResult(){
+     
+				
+      if (!wait) {
+                   var xValues = ['A', 'B','C','D','E'];
+
+var yValues = ['W', 'X', 'Y', 'Z'];
+
+
+
+
+
+//console.log(zValues);
+var age= '#' + document.getElementsByClassName('jscolor')[0].value.toString();
+var colorscaleValue = [
+ 
+				
+  [0,document.getElementsByTagName('h2')[0].style.color],
+  [1,age]
+];
+
+var data = [{
+  x: xValues,
+  y: yValues,
+  z: zValues,
+  type: 'heatmap',
+  colorscale: colorscaleValue,
+  showscale: false
+}];
+
+var layout = {
+  title: 'High Performance Interactive Heatmap',
+  annotations: [],
+  xaxis: {
+    ticks: '',
+    side: 'top'
+  },
+  yaxis: {
+    ticks: '',
+    ticksuffix: ' ',
+    width: 700,
+    height: 700,
+    autosize: false
+  }
+};
+
+for ( var i = 0; i < yValues.length; i++ ) {
+  for ( var j = 0; j < xValues.length; j++ ) {
+    var currentValue = zValues[i][j];
+    if (currentValue != 0.0) {
+      var textColor = 'white';
+    }else{
+      var textColor = 'black';
+    }
+    var result = {
+      xref: 'x1',
+      yref: 'y1',
+      x: xValues[j],
+      y: yValues[i],
+      text: zValues[i][j],
+      font: {
+        family: 'Arial',
+        size: 12,
+        color: 'rgb(50, 171, 96)'
+      },
+      showarrow: false,
+      font: {
+        color: textColor
+      }
+    };
+    layout.annotations.push(result);
+  }
+}
+
+Plotly.newPlot('myDiv', data, layout);
+      } else {
+           setTimeout(getResult, 250);
+      }
+ }
+
+getResult(); 
+        </script>
+
+
+
+<input type="file" id="files" name="files[]" onchange="handleFileSelect()" />
+<output id="list"></output>
+
+
+
+        </body>
+</html>
