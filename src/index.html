@@ -1,43 +1,133 @@
 <!DOCTYPE HTML>
 <html>
-<b>Fast  Heatmap Creator</b>
+  
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+
+  </head>
+  
+  
+  <div class="jumbotron" id="header">
+   <h1>Fast  Heatmap Creator</h1> 
+    </div>
+  
+  <div class="container">
+  <div class="jumbotron">
+    
+ <h6> 
+  <p>Step 1: Upload your heatmap file as csv, make sure its first column is the name of the subsquent rows </p>
+  <p><a href="300k_by_8.csv" target="_blank">(Click to View Sample Gene File Download)</a></p>
+  <p>Step 2: Choose your high and low colors</p>
+  <p>Step 3: The heatmap is made automatically, you can zoom in, zoom out, and other functions provided in the heatmap palette</p>
+ </h6>
+
+  </div>
+</div>
+  
+  <div class="container">
+
 <br>
-<a href="300k_by_8.csv" target="_blank">Sample Gene File Download</a>
 <br>
-<img src="morpheus.png" alt="matrix" style="width:304px;height:228px" align="middle";>
-<br>
-<br>
+
+</div>
+
+<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+
 <style>
+#header{
+  background-color: #082c66;
+  color:white;
+}
+
+body {
+	font-family: 'Noto Sans', sans-serif;
+	background-color:#fcffff;
+}
+
+a{
+  color:white;
+}
+
+a:hover{
+  color:grey;
+}
+
+.jumbotron {
+     background-color: #a7b8bc;
+  	font-family: 'Noto Sans', sans-serif;
+   color:white;
+
+}
+
+
+ #header {
+   	font-family: 'Noto Sans', sans-serif;
+  	background-image:url(http://blog.creative-tim.com/wp-content/uploads/2015/06/header.jpg) ;
+
+}
+
+
 pre{
 display:none;
 }
 
 .error {color: #FF0000;}
 h1 {
-    color: green;
+    color: black;
+}
+
+ .btn-sq-lg{
+ width: 170px !important;
+  height: 170px !important;
+  background-color:#2d8591;
+  color: white;
+   box-shadow: 3px 3px 3px #888888;
+    font-size: 16px;
+   
+}
+
+ .btn-sq-lg:hover{
+  color:white; 
+  background-color: #a7b8bc;
+   font-size: 18px;
+ 
+ }
+
+.btn-primary{
+  background-color:#2d8591;
+  border:none;
+  box-shadow: 3px 3px 3px #888888;
+
+}
+
+.btn-primary:hover{
+  color:white; 
+  background-color:#a7b8bc;
+  border:none;
+
 }
 
 .button {
-    background-color: #4CAF50;
-    border: none;
-    color: red;
+  
     padding: 15px 32px;
     text-align: center;
-    text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 25px;
     margin: 4px 2px;
     cursor: pointer;
 }
-h6{
-    width: 300px;
-    border: 25px solid green;
-    padding: 25px;
-    margin: 25px;
-}
+
+
+
+
 </style>
 
 <head>
+
+<div class="container">
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="css/colorpicker.css" type="text/css" />
@@ -63,49 +153,88 @@ h6{
 
 
   <div id="wrap">
-	<h1>Sample Gene File Download</h1>
-	<form action="javascript:void(0);" id="the_form">
-	  <input type="file" id="the_file" required="required" accept=".csv"/>
-	  <input type="submit" value="Press to name Columns" class="btn" />
+	
+	<br>
+ 
+ <br>
+
+  </div>
+  
+  
+  
+<div class="container">
+  
+  <div class="row" > <h1>Step 1: Upload Your Gene File</h1></div>
+  
+  <br>
+ 
+  
+  <div class="row" >
+    <div class="col-lg-4">
+      <form action="javascript:void(0);" id="the_form">
+	  <input type="file" id="the_file" required="required" accept=".csv" />
+	  </div>
+	  <div class="col-lg-4">
+	  <input type="submit" value="Press to name Columns" class="btn btn-primary btn-md" />
 	</form>
 	<div id="file_info"></div>
 	<div id="list"></div>
+	</div>
+   
+    </div>
+   
+    
   </div>
+</div>
 
 
-
-           
-
- <h4>1.50 choose your colors!</h4>
         <h3> <p id="demo"></p></h3>
 
-	<h6>  <p>Step 1: Upload your heatmap file as csv, make sure its first column is the name of the subsquent rows </p>
-<p>Step 2: Choose your high and low colors</p>
-<p>Step 3: The heatmap is made automatically, you can zoom in, zoom out, and other functions provided in the heatmap palette</p>
- </h6>
-
-
+	
+<br>
+<br>
 
         <script src="jscolor.js"></script>
 
-
+<div class="container">
+  
+   <h1>Step 2: Choose Your Heatmap Colors</h1>
+  
+  <div class="row" > <br> </div>
+  
+  <div class="row" id="color1">
+    <div class="col-lg-4">
+      
+     
+       <h4><button
+       class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColorTwo(this)'} btn btn-sq-lg">
+     Low Color </button></h4>
        
-       <h1><b>Low Color<b></h1>
-         
-<h5><button
-   id="low"
-  class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColorTwo(this)'}">
-     Pick first heatmap  color </button></h5>
+    </div>
+    <div class="col-lg-4" id="color2">
+      
+       
+      <h4> <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'} btn btn-sq-lg">
+      High Color
+      </button></h4>
+      <input type="hidden"  id="chosen-value" value="000000">
+      
+    </div>
+    
+  </div>
+</div>
 
-        <h1><b>High Color<b></h1>
+<br>
+  <br>
 
-       <h2> <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
-   Pick second heatmap color
-        </button></h2>
+      <div class="container">
+   <h1>Step 3: Create Your Heatmap</h1>
+      </div>
 
-         <input type="hidden"  id="chosen-value" value="000000">
+  <br>
+  <br>
+  <br>
 
-       <br>
 
 	 <script>
         function setTextColor(picker) {
@@ -389,12 +518,18 @@ Plotly.newPlot('myDiv', data, layout);
 getResult(); 
         </script>
 
-    </body>
 
+
+    </body>
+    
+    
+<div class="container">
 <input type="file" id="files" name="files[]" onchange="handleFileSelect()" />
 
 <output id="list"></output>
 
+</div>
 
         </body>
+        </div>
 </html>
