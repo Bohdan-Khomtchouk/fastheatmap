@@ -1,133 +1,43 @@
 <!DOCTYPE HTML>
 <html>
-  
-  <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-
-  </head>
-  
-  
-  <div class="jumbotron" id="header">
-   <h1>fastheatmap</h1> 
-    </div>
-  
-  <div class="container">
-  <div class="jumbotron">
-    
- <h6> 
-  <p>Step 1: Upload your heatmap file as csv, make sure its first column is the name of the subsquent rows </p>
-  <p><a href="300k_by_8.csv" target="_blank">(Click to View Sample Gene File Download)</a></p>
-  <p>Step 2: Choose your high and low colors</p>
-  <p>Step 3: The heatmap is made automatically, you can zoom in, zoom out, and other functions provided in the heatmap palette</p>
- </h6>
-
-  </div>
-</div>
-  
-  <div class="container">
-
+<b>Fast  Heatmap Creator</b>
+<br>
+<a href="300k_by_8.csv" target="_blank">Sample Gene File Download</a>
+<br>
+<img src="morpheus.png" alt="matrix" style="width:304px;height:228px" align="middle";>
 <br>
 <br>
-
-</div>
-
-
-
-
 <style>
-#header{
-  background-color: #082c66;
-  color:white;
-}
-
-body {
-	font-family: 'Noto Sans', sans-serif;
-	background-color:#fcffff;
-}
-
-a{
-  color:white;
-}
-
-a:hover{
-  color:grey;
-}
-
-.jumbotron {
-     background-color: #a7b8bc;
-  	font-family: 'Noto Sans', sans-serif;
-   color:white;
-
-}
-
-
- #header {
-   	font-family: 'Noto Sans', sans-serif;
-  	background-image:url(http://blog.creative-tim.com/wp-content/uploads/2015/06/header.jpg) ;
-
-}
-
-
 pre{
 display:none;
 }
 
 .error {color: #FF0000;}
 h1 {
-    color: black;
-}
-
- .btn-sq-lg{
- width: 170px !important;
-  height: 170px !important;
-  background-color:#2d8591;
-  color: white;
-   box-shadow: 3px 3px 3px #888888;
-    font-size: 16px;
-   
-}
-
- .btn-sq-lg:hover{
-  color:white; 
-  background-color: #a7b8bc;
-   font-size: 18px;
- 
- }
-
-.btn-primary{
-  background-color:#2d8591;
-  border:none;
-  box-shadow: 3px 3px 3px #888888;
-
-}
-
-.btn-primary:hover{
-  color:white; 
-  background-color:#a7b8bc;
-  border:none;
-
+    color: green;
 }
 
 .button {
-  
+    background-color: #4CAF50;
+    border: none;
+    color: red;
     padding: 15px 32px;
     text-align: center;
+    text-decoration: none;
     display: inline-block;
-    font-size: 25px;
+    font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
 }
-
-
-
-
+h6{
+    width: 300px;
+    border: 25px solid green;
+    padding: 25px;
+    margin: 25px;
+}
 </style>
 
 <head>
-
-<div class="container">
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="css/colorpicker.css" type="text/css" />
@@ -152,89 +62,41 @@ h1 {
 <script src="jquery-csv.js"></script>
 
 
-  <div id="wrap">
-	
-	<br>
- 
- <br>
-
-  </div>
-  
-  
-  
-<div class="container">
-  
-  <div class="row" > <h1>Step 1: Upload Your Gene File</h1></div>
-  
-  <br>
- 
-  
-  <div class="row" >
-    <div class="col-lg-4">
-      <form action="javascript:void(0);" id="the_form">
-	  <input type="file" id="the_file" required="required" accept=".csv" />
-	  </div>
-	  <div class="col-lg-4">
-	  <input type="submit" value="Press to name Columns" class="btn btn-primary btn-md" />
-	</form>
-	<div id="file_info"></div>
-	<div id="list"></div>
-	</div>
-   
-    </div>
-   
-    
-  </div>
-</div>
 
 
+
+           
+
+ <h4>Welcome!</h4>
         <h3> <p id="demo"></p></h3>
 
-	
-<br>
-<br>
+	<h6>  <p>Step 1:  Choose your high and low colors </p>
+<p>Step 2:Upload your heatmap file as csv </p>
+<p>Step 3: The heatmap is made automatically, you can zoom in, zoom out, and other functions provided in the heatmap palette</p>
+ </h6>
+
+
 
         <script src="jscolor.js"></script>
 
-<div class="container">
-  
-   <h1>Step 2: Choose Your Heatmap Colors</h1>
-  
-  <div class="row" > <br> </div>
-  
-  <div class="row" id="color1">
-    <div class="col-lg-4">
-      
-     
-       <h4><button
-       class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColorTwo(this)'} btn btn-sq-lg">
-     Low Color </button></h4>
+
        
-    </div>
-    <div class="col-lg-4" id="color2">
-      
-       
-      <h4> <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'} btn btn-sq-lg">
-      High Color
-      </button></h4>
-      <input type="hidden"  id="chosen-value" value="000000">
-      
-    </div>
-    
-  </div>
-</div>
+       <h1><b>Low Color<b></h1>
+         
+<h5><button
+   id="low"
+  class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColorTwo(this)'}">
+     Pick first heatmap  color </button></h5>
 
-<br>
-  <br>
+        <h1><b>High Color<b></h1>
 
-      <div class="container">
-   <h1>Step 3: Create Your Heatmap</h1>
-      </div>
+       <h2> <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
+   Pick second heatmap color
+        </button></h2>
 
-  <br>
-  <br>
-  <br>
+         <input type="hidden"  id="chosen-value" value="000000">
 
+       <br>
 
 	 <script>
         function setTextColor(picker) {
@@ -266,14 +128,13 @@ function setColors(){
 
 
 
-<div id="myDiv"></div>
-
+<!--<div id="myDiv"></div>-->
 
 <!--<button onclick="setColors()">Click me</button>-->
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<img id="jpg-export"></img>
 
 <script type="text/javascript">
-
 	function fileInfo(e){
 		var file = e.target.files[0];
 		if (file.name.split(".")[1].toUpperCase() != "CSV") {
@@ -284,7 +145,7 @@ function setColors(){
 	}
 
 	function handleFileSelects(){
-		var file = document.getElementById("the_file").files[0],
+		var file = document.getElementById("files").files[0],
 			reader = new FileReader();
 
 	reader.onload = function(file) {
@@ -315,6 +176,7 @@ function setColors(){
 nameDataLog=nameDataLog.slice(1,nameDataLog.length);
 localStorage.setItem("quentinTarantino", JSON.stringify(labels));
 localStorage.setItem("logTime", JSON.stringify(nameDataLog));
+        console.log(labels);
 	};
 
 	reader.readAsText(file);
@@ -325,7 +187,7 @@ localStorage.setItem("logTime", JSON.stringify(nameDataLog));
 
 </script>
 
-
+            <div id="MyDivers" style="width: 100%; height: 100px;" align="right">
 <script>
 
 function makeplot() {
@@ -342,15 +204,15 @@ function popData(fl) {
 Plotly.d3.csv(fl, function(data) {
 console.time('someFunction');
 
+
+
 var retrievedData = localStorage.getItem("quentinTarantino");
 var labels = JSON.parse(retrievedData);
-
 var array=[]
 for(var i = 1; i < labels.length; i++ ) {
       array.push(labels[i])
   
 }
-
 function t(fields) {
   return function (data) {
     return fields.map(function (field) {
@@ -362,10 +224,12 @@ function t(fields) {
  dataset = data.map(t(array));
      
 
+     
+
     
 
  zValues = dataset; 
-  console.log(zValues); 
+ console.log(zValues); 
 
 console.timeEnd('someFunction');
 
@@ -383,7 +247,7 @@ console.timeEnd('someFunction');
     var fileURI = reader.result;
     popData(fileURI);
     console.log("fired");
-    console.log(fileURI);
+
 
 
 
@@ -429,18 +293,17 @@ function getResult(){
 
 				  
       if (!wait) {
-        var retrievedData = localStorage.getItem("quentinTarantino");
+var retrievedData = localStorage.getItem("quentinTarantino");
 var labels = JSON.parse(retrievedData);
-
 var retrievedDatas = localStorage.getItem("logTime");
 var nameData = JSON.parse(retrievedDatas);
-
 localStorage.removeItem("logTime");
 localStorage.removeItem("quentinTarantino");
 labels=labels.slice(1,labels.length);
-                   var xValues = labels;<!-- [' Team A', ' Team B',' Team C',' Team D',' Team E'];-->
 
-var yValues = nameData; <!-- ['Team W', 'Team X', 'Team Y', 'Team Z'];-->
+                   var xValues =  labels;
+
+var yValues =  nameData;
 console.log(xValues);
 console.log(yValues);
 //console.log(zValues);
@@ -464,8 +327,8 @@ var data = [{
 }];
 
 var layout = {
-  title: 'High Performance Interactive Heatmap',
-  annotations: [],
+  title: '',
+  
   xaxis: {
     ticks: '',
     side: 'top'
@@ -476,12 +339,16 @@ var layout = {
     width: 700,
     height: 700,
     autosize: false
-  }
+  },
+    margin:{
+            l: 400, b: 10, r: 10, t: 200
+
+}
 };
 
-for ( var i = 0; i < yValues.length-1; i++ ) {
-  for ( var j = 0; j <xValues.length; j++ ) {
-      
+for ( var i = 0; i < yValues; i++ ) {
+  for ( var j = 0; j < xValues; j++ ) {
+    console.log("erer",i,j)
     var currentValue = zValues[i][j];
     if (currentValue != 0.0) {
       var textColor = 'white';
@@ -508,8 +375,14 @@ for ( var i = 0; i < yValues.length-1; i++ ) {
     layout.annotations.push(result);
   }
 }
+console.log("here");
+var finalsd= Plotly.newPlot('myDiv', data, layout);
+//var update = {
+  //width: 800,  // or any new width
+  //height: 100  // " "
+//};
 
-Plotly.newPlot('myDiv', data, layout);
+Plotly.relayout(finalsd, update);
       } else {
            setTimeout(getResult, 250);
       }
@@ -517,19 +390,16 @@ Plotly.newPlot('myDiv', data, layout);
 
 getResult(); 
         </script>
+            </div>
 
 
+   
 
-    </body>
-    
-    
-<div class="container">
-<input type="file" id="files" name="files[]" onchange="handleFileSelect()" />
+<input type="file" id="files" name="files[]" onchange="handleFileSelect();handleFileSelects();fileInfo();myFunction" />
 
 <output id="list"></output>
 
-</div>
+<div id="myDiv"></div>
 
         </body>
-        </div>
 </html>
