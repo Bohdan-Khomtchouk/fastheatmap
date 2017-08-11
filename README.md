@@ -44,6 +44,12 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 Khomtchouk BB, Hennessy JR, Wahlestedt C: "shinyheatmap: Ultra fast low memory heatmap web interface for big data genomics."  <i>PLoS One</i>.  2017, 12(5): e0176334.  
 
+## Future plans
+
+- [x] Outperform all state-of-the-art heatmap software (https://doi.org/10.1371/journal.pone.0176334.g004)
+- [x] Retain the lead
+- [ ] Add hierarchical clustering
+- [ ] Add an anchor view
 
 ## Contributors
 * James R. Hennessy (*University of Miami*, now *Stanford University*)
