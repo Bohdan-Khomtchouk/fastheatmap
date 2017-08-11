@@ -10,7 +10,7 @@
 </div>
 
 
-## Screenshots
+## Screenshots (this is literally how it works)
 
 <img width="216" alt="morpheus" src="https://cloud.githubusercontent.com/assets/9893806/20548624/1a2f1a38-b0f3-11e6-843c-edc6e7a0d007.png">
 <img width="216" alt="neo" src="https://cloud.githubusercontent.com/assets/9893806/20548629/1cd1f88c-b0f3-11e6-8e84-61dbacf40c90.png">
