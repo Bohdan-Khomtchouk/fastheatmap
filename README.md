@@ -40,7 +40,7 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 
 ## Citation
-If you are using `fastheatmap` in your work, please cite the paper (http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0176334) as:
+`fastheatmap` is the high performance computing server of `shinyheatmap`.  If you are using `fastheatmap` in your work, please cite the `shinyheatmap` paper (http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0176334) accordingly:
 
 Khomtchouk BB, Hennessy JR, Wahlestedt C: "shinyheatmap: Ultra fast low memory heatmap web interface for big data genomics."  <i>PLoS One</i>.  2017, 12(5): e0176334.  
 
