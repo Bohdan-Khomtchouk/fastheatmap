@@ -49,7 +49,7 @@ Khomtchouk BB, Hennessy JR, Wahlestedt C: "shinyheatmap: Ultra fast low memory h
 - [x] Outperform all state-of-the-art heatmap software (https://doi.org/10.1371/journal.pone.0176334.g004)
 - [x] Retain the (comfortable) lead
 - [ ] Add high performance hierarchical clustering
-- [ ] Add an anchor view (having a "satellite" view when zooming in would be of a great help.  In CytoscapeWeb or Cytoscape network visualization tools for example when users zoom in/out there is always a small window showing the big picture of the network at its higher level and a rectangle highlighting the region where users zoomed in).
+- [ ] Add an anchor view (i.e., having a "satellite" view when zooming in would be of a great help.  In CytoscapeWeb or Cytoscape network visualization tools for example when users zoom in/out there is always a small window showing the big picture of the network at its higher level and a rectangle highlighting the region where users zoomed in).
 
 ## Contributors
 * James R. Hennessy (*University of Miami*, now *Stanford University*)
