@@ -46,5 +46,5 @@ Khomtchouk BB, Hennessy JR, Wahlestedt C: "shinyheatmap: Ultra fast low memory h
 
 
 ## Contributors
-* James R. Hennessy (*University of Miami*)
+* James R. Hennessy (*University of Miami*, now *Stanford University*)
 * You?
