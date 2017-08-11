@@ -4,12 +4,10 @@
 
 <img src="https://user-images.githubusercontent.com/9893806/29197364-d2bc7e14-7e08-11e7-9779-8861d0bb4431.png">
 
-### Super high performance interactive heatmap software
+### Super high performance interactive heatmap software: http://fastheatmap.com
 
 
 </div>
-
-Try me: http://fastheatmap.com
 
 
 ## Screenshots
