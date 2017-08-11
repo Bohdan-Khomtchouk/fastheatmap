@@ -1,4 +1,14 @@
+<div align="center">
+
 # fastheatmap
+
+<img src="https://user-images.githubusercontent.com/9893806/29197364-d2bc7e14-7e08-11e7-9779-8861d0bb4431.png">
+
+##### Super high performance interactive heatmap software
+
+
+</div>
+
 High performance interactive heatmap software: http://fastheatmap.com
 
 If you are using `fastheatmap` in your work, please cite the paper (http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0176334) accordingly.
