@@ -1,20 +1,30 @@
 <!DOCTYPE HTML>
 <html>
-<b>Fast  Heatmap Creator</b>
+<b>Fast Heatmap Creator</b>
 <br>
-<a href="300k_by_8.csv" target="_blank">Sample Gene File Download</a>
+<br>
+<a href="300k_by_8.csv" target="_blank">>>Sample Gene File Download<<</a>
+<br>
 <br>
 <img src="morpheus.png" alt="matrix" style="width:304px;height:228px" align="middle";>
 <br>
-<br>
+
+
+
+
+
+
+<!--configure button and header styles-->
 <style>
+
 pre{
 display:none;
 }
+
 .error {color: #FF0000;}
-h1 {
-    color: green;
-}
+
+h1 {color: green;} /*header style*/
+
 .button {
     background-color: #4CAF50;
     border: none;
@@ -26,321 +36,331 @@ h1 {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-}
-h6{
+} /*button style (class = "button")*/
+
+h6 {
     width: 300px;
     border: 25px solid green;
     padding: 25px;
     margin: 25px;
-}
+} /*for text inside the green box*/
+
 </style>
 
+
+
+
+
+
+
+
+<!--first header-->
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" href="css/colorpicker.css" type="text/css"/>
+<link rel="stylesheet" media="screen" type="text/css" href="css/layout.css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/colorpicker.js"></script>
+<script type="text/javascript" src="js/eye.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/layout.js?ver=1.0.2"></script>
 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" href="css/colorpicker.css" type="text/css" />
-    <link rel="stylesheet" media="screen" type="text/css" href="css/layout.css" />
-        <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/colorpicker.js"></script>
-    <script type="text/javascript" src="js/eye.js"></script>
-    <script type="text/javascript" src="js/utils.js"></script>
-    <script type="text/javascript" src="js/layout.js?ver=1.0.2"></script>
-        <!-- Numeric.js -->
- <script src="    https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
-<!-- Plotly.js -->
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-        <!--<script src="plotly/loader/loadersrc/plotly-latest.min.js"></script>-->
-        <!--<script src='libs/numeric.min.js'></script>=-->
-        </head>
-        <body>
-	  <script src="plotly-latest.min.js"></script>
 
-<script src="d3.min.js?v=3.2.8"></script>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="jquery-csv.js"></script>
+<!--Numeric.js-->
+<script src="    https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<!--Plotly.js-->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
 
 
 
 
 
 
-
- <h4>Welcome!</h4>
-        <h3> <p id="demo"></p></h3>
-
-	<h6>  <p>Step 1:  Choose your high and low colors </p>
-<p>Step 2:Upload your heatmap file as csv </p>
-<p>Step 3: The heatmap is made automatically, you can zoom in, zoom out, and other functions provided in the heatmap palette</p>
- </h6>
+<!--beginning of body-->
+<body>
 
 
 
-        <script src="jscolor.js"></script>
 
-
-
-       <h1><b>Low Color<b></h1>
-
-<h5><button
-   id="low"
-  class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColorTwo(this)'}">
-     Pick first heatmap  color </button></h5>
-
-        <h1><b>High Color<b></h1>
-
-       <h2> <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
-   Pick second heatmap color
-        </button></h2>
-
-         <input type="hidden"  id="chosen-value" value="000000">
-
-       <br>
-
-	 <script>
-        function setTextColor(picker) {
-  document.getElementsByTagName('h5')[0].style.color = '#' + picker.toString();
-}
-     </script>
-
-
-	<script>
-        function setTextColorTwo(picker) {
-  document.getElementsByTagName('h2')[0].style.color = '#' + picker.toString();
-        }
-        </script>
-
-
-
-<script>
-function setColors(){
-    var x = document.createElement("INPUT");
-    x.setAttribute("type", "color");
-    document.body.appendChild(x);
-}
-</script>
-        <!-- Plotly chart will be drawn inside this DIV -->
-
-
-
-<!--<div id="myDiv"></div>-->
-
-<!--<button onclick="setColors()">Click me</button>-->
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<img id="jpg-export"></img>
-
-<script type="text/javascript">
-	function fileInfo(e){
-		var file = e.target.files[0];
-		if (file.name.split(".")[1].toUpperCase() != "CSV") {
-			alert('Invalid csv file !');
-			e.target.parentNode.reset();
-			return;
-		}
-	}
-	function handleFileSelects(){
-		var file = document.getElementById("files").files[0],
-			reader = new FileReader();
-	reader.onload = function(file) {
-		var content = file.target.result,
-			rows = file.target.result.split(/[\r\n|\n]+/),
-			i = 0,
-			labels = [],
-			data = [],
-			nameDataLog=[],
-			tempData,
-			nameData;
-		for (; i < rows.length; i++){
-			tempData = rows[i].split(',');
-			nameData= tempData[0];
-							nameDataLog.push(nameData);
-			if (i === 0) {
-				labels = tempData;
-			}
-			//If you dont' want labels in the dataset then put this in the else statement
-			else{
-			data.push(tempData);
-			}
-		}
-// You'll see here you have access to the full data set of data and also one called labels. Labels. I put in console logs
-nameDataLog=nameDataLog.slice(1,nameDataLog.length);
-localStorage.setItem("quentinTarantino", JSON.stringify(labels));
-localStorage.setItem("logTime", JSON.stringify(nameDataLog));
-        console.log(labels);
-	};
-	reader.readAsText(file);
- }
- document.getElementById('the_form').addEventListener('submit', handleFileSelects, false);
- document.getElementById('the_file').addEventListener('change', fileInfo, false);
-</script>
-
-            <div id="MyDivers" style="width: 100%; height: 100px;" align="right">
-<script>
-function makeplot() {
-  //Plotly.d3.csv("localhost", function(data){ processData(data) } );
-};
-var wait = true;
-var zValues = [];
-function popData(fl) {
-Plotly.d3.csv(fl, function(data) {
-console.time('someFunction');
-var retrievedData = localStorage.getItem("quentinTarantino");
-var labels = JSON.parse(retrievedData);
-var array=[]
-for(var i = 1; i < labels.length; i++ ) {
-      array.push(labels[i])
-
-}
-function t(fields) {
-  return function (data) {
-    return fields.map(function (field) {
-      return +data[field]
-    })
+  <script src="plotly-latest.min.js"></script>
+  <script src="d3.min.js?v=3.2.8"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="jquery-csv.js"></script>
+  <script src="jscolor.js"></script>
+  <!--sets low color-->
+  <script>function setTextColor(picker) {
+    document.getElementsByTagName('h5')[0].style.color = '#' + picker.toString();
+  }</script>
+  <!--sets high color-->
+  <script>function setTextColorTwo(picker) {
+    document.getElementsByTagName('h2')[0].style.color = '#' + picker.toString();
+  }</script>
+  <!--fileInfo, handleFileSelects functions-->
+  <script type="text/javascript">
+  function fileInfo(e) {
+    var file = e.target.files[0];
+    if (file.name.split(".")[1].toUpperCase() != "CSV") {
+      alert('Invalid csv file !');
+      e.target.parentNode.reset();
+      return;
+    }
   }
-}
- <!-- dataset = data.map(function(d) { return [ +d["Control 1"], +d["Control 2"], +d["Exp3"], +d["Exp4"], +d["Exp5"], +d["Exp6"] ]; });-->
- dataset = data.map(t(array));
+  function handleFileSelects() {
+    var file = document.getElementById("files").files[0],
+    reader = new FileReader();
+  	reader.onload = function(file) {
+  		var content = file.target.result,
+      rows = file.target.result.split(/[\r\n|\n]+/),
+      i = 0,
+      labels = [],
+      data = [],
+      nameDataLog=[],
+      tempData,
+      nameData;
+  		for (; i < rows.length; i++) {
+        tempData = rows[i].split(',');
+  			nameData= tempData[0];
+        nameDataLog.push(nameData);
+  			if (i === 0) {
+  				labels = tempData;
+  			}
+  			//If you dont' want labels in the dataset then put this in the else statement
+  			else {
+  			data.push(tempData);
+  			}
+  		}
+      // You'll see here you have access to the full data set of data and also one called labels. Labels. I put in console logs
+      nameDataLog=nameDataLog.slice(1,nameDataLog.length);
+      localStorage.setItem("quentinTarantino", JSON.stringify(labels));
+      localStorage.setItem("logTime",
+      JSON.stringify(nameDataLog));
+      console.log(labels);
+  	};
+    reader.readAsText(file);
+  }
+  document.getElementById('the_form').addEventListener('submit', handleFileSelects, false);
+  document.getElementById('the_file').addEventListener('change', fileInfo, false);
+  </script>
 
 
 
- zValues = dataset;
- console.log(zValues);
-console.timeEnd('someFunction');
-  wait = false;
-});
-};
+
+
+
+  <img id="jpg-export"></img>
+
+
+  <input type="hidden" id="chosen-value" value="000000">
+
+  <h4>Welcome!</h4> <!--welcome message-->
+
+  <h6> <!--text inside the green box-->
+  <p>Step 1: Choose your high and low colors</p>
+  <p>Step 2: Upload your heatmap file as csv</p>
+  <p>Step 3: The heatmap is made automatically, you can zoom in, zoom out, and other functions provided in the heatmap palette</p>
+  <p>OPTIONAL: If you wish your map to be zoomed in on a specific value or range of values, enter your x- and y-values or ranges of interest before uploading your heatmap file (ranges must be entered in the exact format "[x,y]", where x and y are strings that cannot contain commas or brackets)</p>
+  </h6>
+
+  <h1><b>Low Color<b></h1> <!--low color header-->
+
+  <h5><button id="low" class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColorTwo(this)'}">Pick first heatmap  color</button></h5> <!--low color button-->
+
+  <h1><b>High Color<b></h1> <!--high color header-->
+
+  <h2><button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">Pick second heatmap color</button></h2> <!--high color button-->
+
+
+  <h1><b>X-value(s) of interest<b></h1>
+
+  <h7><input id = "xInput" type="text" name="xVal"></h7>
+
+  <h1><b>Y-value(s) of interest<b></h1>
+
+  <h8><input id = "yInput" type="text" name="yVal"></h8>
+
+  <br>
+  <br>
+
+
+
+  <!--popData, handleFileSelect, and getResult functions-->
+  <script>
+  var wait = true;
+  zValues = [];
+  function popData(fl) {
+    Plotly.d3.csv(fl, function(data) {
+      console.time('someFunction');
+      var retrievedData = localStorage.getItem("quentinTarantino");
+      var labels = JSON.parse(retrievedData);
+      var array=[];
+      for(var i = 1; i < labels.length; i++ ) {
+        array.push(labels[i]);
+      }
+      function t(fields) {
+        return function (data) {
+          return fields.map(function (field) {
+            return +data[field]
+          })
+        }
+      }
+      dataset = data.map(t(array));
+      zValues = dataset;
+      console.log(zValues);
+      console.timeEnd('someFunction');
+      wait = false;
+    });
+  };
+
   function handleFileSelect() {
     var file   = document.getElementById("files").files[0];
     var reader  = new FileReader();
-  reader.addEventListener("load", function () {
-    var fileURI = reader.result;
-    popData(fileURI);
-    console.log("fired");
-  }, false);
-  if (file) {
-    reader.readAsDataURL(file);
-  }
-}
-
-//popData();
-function processData(allRows) {
-  zValues = allRows;
-  var x = [], y = [], standard_deviation = [];
-  for (var i=0; i<allRows.length; i++) {
-    row = allRows[i];
-  }
-  console.log( 'X',x, 'Y',y, 'SD',standard_deviation );
-  makePlotly( x, y, standard_deviation );
-}
-makeplot();
-//popData();
-function setColor(){
-
-    var x = document.createElement("INPUT");
-    x.setAttribute("type", "color");
-    document.body.appendChild(x);
-
-}
-function getResult(){
-
-      if (!wait) {
-var retrievedData = localStorage.getItem("quentinTarantino");
-var labels = JSON.parse(retrievedData);
-var retrievedDatas = localStorage.getItem("logTime");
-var nameData = JSON.parse(retrievedDatas);
-localStorage.removeItem("logTime");
-localStorage.removeItem("quentinTarantino");
-labels=labels.slice(1,labels.length);
-                   var xValues =  labels;
-var yValues =  nameData;
-console.log(xValues);
-console.log(yValues);
-//console.log(zValues);
-var age= document.getElementsByTagName('h5')[0].style.color;
-var rude = document.getElementsByTagName('h2')[0].style.color;
-var colorscaleValue = [
-
-
-  [0,age],
-  [1,rude]
-];
-var data = [{
-  x: xValues,
-  y: yValues,
-  z: zValues,
-  type: 'heatmap',
-  colorscale: colorscaleValue,
-  showscale: false
-}];
-var layout = {
-  title: '',
-
-  xaxis: {
-    ticks: '',
-    side: 'top'
-  },
-  yaxis: {
-    ticks: '',
-    ticksuffix: ' ',
-    width: 700,
-    height: 700,
-    autosize: false
-  },
-    margin:{
-            l: 400, b: 10, r: 10, t: 200
-}
-};
-for ( var i = 0; i < yValues; i++ ) {
-  for ( var j = 0; j < xValues; j++ ) {
-    console.log("erer",i,j)
-    var currentValue = zValues[i][j];
-    if (currentValue != 0.0) {
-      var textColor = 'white';
-    }else{
-      var textColor = 'black';
+      reader.addEventListener("load", function() {
+      var fileURI = reader.result;
+      popData(fileURI);
+      console.log("fired");
+    }, false);
+      if (file) {
+      reader.readAsDataURL(file);
     }
-    var result = {
-      xref: 'x1',
-      yref: 'y1',
-      x: xValues[j],
-      y: yValues[i],
-      text: "",
-     <!-- text: zValues[i][j],-->
-      font: {
-        family: 'Arial',
-        size: 12,
-        color: 'rgb(50, 171, 96)'
-      },
-      showarrow: false,
-      font: {
-        color: textColor
-      }
-    };
-    layout.annotations.push(result);
   }
-}
-console.log("here");
-var finalsd= Plotly.newPlot('myDiv', data, layout);
-//var update = {
-  //width: 800,  // or any new width
-  //height: 100  // " "
-//};
-Plotly.relayout(finalsd, update);
-      } else {
-           setTimeout(getResult, 250);
+    function getResult() {
+    if (!wait) {
+      var retrievedData = localStorage.getItem("quentinTarantino");
+      var labels = JSON.parse(retrievedData);
+      var retrievedDatas = localStorage.getItem("logTime");
+      var nameData = JSON.parse(retrievedDatas);
+      localStorage.removeItem("logTime");
+      localStorage.removeItem("quentinTarantino");
+      labels=labels.slice(1,labels.length);
+      xValues =  labels;
+      yValues =  nameData;
+      console.log(xValues);
+      console.log(yValues);
+      //console.log(zValues);
+      var age = document.getElementsByTagName('h5')[0].style.color;
+      var rude = document.getElementsByTagName('h2')[0].style.color;
+      var xval = document.getElementById('xInput').value;
+      var yval = document.getElementById('yInput').value;
+      var isRangeX = 0;
+      var isRangeY = 0;
+      var y1;
+      var y2;
+      var zoomx = [0,xValues.length];
+      var zoomy = [0,yValues.length];
+      if (xval.indexOf("[") == 0) isRangeX = 1;
+      if (yval.indexOf("[") == 0) isRangeY = 1;
+      if (isRangeX == 0) {
+         var isx = 0;
+         if(xValues.includes(xval)) isx = 1;
+         if(isx == 1) zoomx = [xValues.indexOf(xval),xValues.indexOf(xval)];
       }
- }
-getResult();
-        </script>
-            </div>
+      if (isRangeX == 1) {
+        var xcomma = xval.indexOf(",");
+        if (xcomma != -1) {
+          var x1 = xval.substring(1, xcomma);
+          var end = xval.length-1;
+          var x2 = xval.substring(xcomma+1, end);
+          var isx = 0;
+          if (xValues.includes(x1) && xValues.includes(x2) && xValues.indexOf(x1) < xValues.indexOf(x2)) isx = 1;
+          if(isx == 1) zoomx = [xValues.indexOf(x1), xValues.indexOf(x2)];
+        }
+      }
+      if (isRangeY == 0) {
+        var isy = 0;
+        if(yValues.includes(yval)) isy = 1;
+        if(isy == 1) zoomy = [yValues.indexOf(yval),yValues.indexOf(yval)];
+      }
+      if (isRangeY == 1) {
+        var ycomma = yval.indexOf(",");
+        if (ycomma != -1) {
+          y1 = yval.substring(1, ycomma);
+          var end = yval.length-1;
+          y2 = yval.substring(ycomma+1, end);
+          var isy = 0;
+          if (yValues.includes(y1) && yValues.includes(y2) && yValues.indexOf(y1) < yValues.indexOf(y2)) isy = 1;
+          if(isy == 1) zoomy = [yValues.indexOf(y1), yValues.indexOf(y2)];
+        }
+      }
+      var colorscaleValue = [[0,age], [1,rude]]; // sets low and high colors
+      var data = [{
+        x: xValues,
+        y: yValues,
+        z: zValues,
+        type: 'heatmap',
+        colorscale: colorscaleValue,
+        showscale: false
+      }];
+      // EDIT THIS for range
+      var layout = {
+        title: '',
+        xaxis: {
+          range: zoomx,
+          ticks: '',
+          side: 'top'
+        },
+        yaxis: {
+          range: zoomy,
+          ticks: '',
+          ticksuffix: ' ',
+          width: 700,
+          height: 700,
+          autosize: false
+        },
+        margin:{l: 400, b: 10, r: 10, t: 200}
+      };
+      for (var i = 0; i < yValues; i++) {
+        for (var j = 0; j < xValues; j++) {
+          console.log("erer",i,j)
+          var currentValue = zValues[i][j];
+          if (currentValue != 0.0) {
+            var textColor = 'white';
+          } else {
+            var textColor = 'black';
+          }
+          var result = {
+            xref: 'x1',
+            yref: 'y1',
+            x: xValues[j],
+            y: yValues[i],
+            text: "",
+            font: {
+              family: 'Arial',
+              size: 12,
+              color: 'rgb(50, 171, 96)'
+            },
+            showarrow: false,
+            font: {
+              color: textColor
+            }
+          };
+          layout.annotations.push(result);
+        }
+      }
+      console.log("here");
+      // Plotly layout
+      var finalsd = Plotly.newPlot('myDiv', data, layout);
+      Plotly.relayout(finalsd, update);
+    } else {
+      setTimeout(getResult, 250);
+    }
+  }
+  getResult();
+  </script>
 
 
 
 
-<input type="file" id="files" name="files[]" onchange="handleFileSelect();handleFileSelects();fileInfo();myFunction" />
 
-<output id="list"></output>
 
-<div id="myDiv"></div>
+  <!--select file button-->
+  <input type="file" id="files" name="files[]" onchange="handleFileSelect();handleFileSelects();fileInfo();"/>
 
-        </body>
+  <div id="myDiv"></div>
+
+
+
+
+</body>
+
 </html>
